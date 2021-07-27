@@ -1,0 +1,62 @@
+[
+  {
+    "img": "./images/south_korea.png",
+    "name": "South Korea",
+    "population": "51.71 million",
+    "capital": "Seoul",
+    "Region": "Asia",
+    "Currency": "Won",
+    "Language": "Korean",
+    "Border countries": ["North Korea"]
+  },
+  {
+    "img": "./images/japan.png",
+    "name": "Japan",
+    "population": "126.3 million",
+    "capital": "Tokyo",
+    "Region": "Asia",
+    "Currency": "Yen",
+    "Language": "Japanese",
+    "Border countries": ["North Korea", "China", "South Korea"]
+  },
+  {
+    "img": "./images/canada.png",
+    "name": "Canada",
+    "population": "37.59 million",
+    "capital": "Ottawa",
+    "Region": "North America",
+    "Currency": "Canadian dollar",
+    "Language": "English",
+    "Border countries": ["United states"]
+  },
+  {
+    "img": "./images/states.jpg",
+    "name": "United states",
+    "population": "328.2 million",
+    "capital": "Washington D.C",
+    "Region": "North America",
+    "Currency": "Dollar",
+    "Language": "English",
+    "Border countries": ["Canada", "Mexico"]
+  },
+  {
+    "img": "./images/spain.png",
+    "name": "Spain",
+    "population": "46.94 million",
+    "capital": "Madrid",
+    "Region": "Europe",
+    "Currency": "Euro",
+    "Language": "Spanish",
+    "Border countries": ["Portugal", "France", "Morocco"]
+  },
+  {
+    "img": "./images/south_africa.jpg",
+    "name": "South Africa",
+    "population": "58.56 million",
+    "capital": "Cape Town",
+    "Region": "Africa",
+    "Currency": "South African rand",
+    "Language": "English",
+    "Border countries": ["Namibia", "Botswana", "Zimbabwe"]
+  }
+]
