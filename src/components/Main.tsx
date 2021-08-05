@@ -21,6 +21,7 @@ const Main = () => {
   useEffect(() => {
     fetchList();
   }, []);
+
   return (
     <WrappedMain>
       <SearchSection />

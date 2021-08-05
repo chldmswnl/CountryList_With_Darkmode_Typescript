@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import Select from "react-select";
 import { Input } from "reactstrap";
+import { useDispatch } from "react-redux";
+import { setKeyword } from "../redux/keywordSlice";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const WrappedSearchSection = styled.div`
@@ -18,16 +20,24 @@ const SearchBar = styled(Input)`
 `;
 
 function SearchSection() {
+  const dispatch = useDispatch();
+
+  const handleChange = (e: { value: string; label: string }) => {
+    dispatch(setKeyword(e.value));
+  };
+
   const options = [
-    { value: "africa", label: "Africa" },
-    { value: "america", label: "America" },
-    { value: "asia", label: "Asia" },
-    { value: "europe", label: "Europe" },
+    { value: "", label: "None" },
+    { value: "Africa", label: "Africa" },
+    { value: "North Aamerica", label: "America" },
+    { value: "Asia", label: "Asia" },
+    { value: "Europe", label: "Europe" },
   ];
   return (
     <WrappedSearchSection>
       <SearchBar type="text" placeholder="Search for a country..." />
       <SelectRegion
+        onChange={handleChange}
         options={options}
         isSearchable={false}
         placeholder="Filter by Region"
