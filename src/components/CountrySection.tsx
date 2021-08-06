@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux";
 import Country from "./Country";
@@ -17,11 +17,37 @@ function CountrySection() {
   const data: countryType[] = useSelector(
     (state: RootState) => state.countryList
   );
-  const [countryList, setCountryList] = useState(data);
+  const [countryList, setCountryList] = useState<countryType[]>([]);
   const keyword: string = useSelector((state: RootState) => state.keyword);
+  const countryName: string = useSelector(
+    (state: RootState) => state.countryName
+  );
 
-  console.log(countryList);
-  console.log(keyword);
+  const makeNewList = (obj: { value: string; keyValue: string }) => {
+    const { value, keyValue } = obj;
+    let newData: countryType[] = [];
+    if (value) {
+      newData =
+        keyValue === "region"
+          ? data.filter((data) => data.region === value)
+          : data.filter((data) => data.name === value);
+      setCountryList(newData);
+    } else {
+      setCountryList(data);
+    }
+  };
+
+  useEffect(() => {
+    setCountryList(data);
+  }, [data]);
+
+  useEffect(() => {
+    makeNewList({ value: keyword, keyValue: "region" });
+  }, [keyword]);
+
+  useEffect(() => {
+    makeNewList({ value: countryName, keyValue: "countryName" });
+  }, [countryName]);
 
   return (
     <CountryDiv>
