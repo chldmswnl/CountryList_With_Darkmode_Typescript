@@ -1,5 +1,6 @@
 import React from "react";
-import { countryType } from "../types";
+//import { countryType } from "../types";
+import { cType } from "Mymodule";
 import styled from "styled-components";
 
 const CountryCard = styled.div`
@@ -41,7 +42,7 @@ const CountryInfo = styled.span`
 `;
 
 type CountryProps = {
-  countryInfo: countryType;
+  countryInfo: cType;
 };
 
 function Country({

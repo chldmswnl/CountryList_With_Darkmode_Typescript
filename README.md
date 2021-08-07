@@ -1,70 +1,124 @@
-# Getting Started with Create React App
+## 라이브러리에서의 타입스크립트
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#### Third party library가 만약 타입을 지원하지 않는다면 직접 타입을 선언해줘야 하는데 이것을 'index.d.ts'안에서 해 줄수 있다.
 
-## Available Scripts
+###### d.ts 파일 (선언코드만 담긴 파일)
 
-In the project directory, you can run:
+- 구현부가 아닌 선언부만을 작성하는 용도의 파일을 의미한다.
+- JS코드로 컴파일 되지 않는다.
+- 이 파일에 작성되는 decalre 블록의 필드에서는 export 키워드가 기본적으로 붙기 때문에 또 붙여줄 필요가 없다.
 
-### `yarn start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- 사용하는 법
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1. 'tsconfig.ts' 파일을 수정한다.
+2. 'compilerOptions'에 'typeRoots'라는 속성을 추가해 주고 배열 안에 index.d.ts를 선언 할 Root를 설정 해 준다. 이때 typeRoot는 자신이 원하는 경로를 지정하고 설정할 수 있다.
 
-### `yarn test`
+```
+{
+    conpilerOptions:{
+        "typeRoots":["./types"] // 보통 types 폴더를 만들어서 타입 정의
+      }
+}
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
 
-### `yarn build`
+3. typeRoot로 지정된 곳에 index.d.ts 파일을 만들어 주면 된다.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+>>types/index.d.ts
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+declare module 'example'{
+    const exampleVar:boolean;
+    export default exampleVar;
+}
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- index.d.ts에서의 선언 방식
 
-### `yarn eject`
+### Ambient declarations (앰비언트 선언방식 - 구현이 없는 선언)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+#### 타입스크립트 컴파일러에 JS에 대한 구현'환경'정보를 준다.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- ambient variables
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+declare let hello:any;
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- ambient module
+- 모듈내에서는 Interface, class, function등의 요소를 선언할 수 있다.
 
-## Learn More
+```
+declare module "module1"
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 리액트에서 타입스크립트 사용하기
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Props
 
-### Code Splitting
+```
+type CardProps={  // type ver
+    title:string,
+    img:string,
+    author?:string // optional
+}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+interface CardProps2{ //interface ver
+     title:string,
+    img:string,
+    author?:string // optional
+}
 
-### Analyzing the Bundle Size
+const Card=({title,img,author}:CardProps)=>{
+    return (
+    <>
+    <span>{title} {author}</span>
+    <img src={img}>
+    </>)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+}
 
-### Making a Progressive Web App
+const Card:React.FC<CardProps>=(props)=>{
+    return
+    (<>
+    <span>{title} {author}</span>
+    <img src={img}>
+    </>)
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+##### React.FC란 해당 컴포넌트가 리액트의 함수형 컴포넌트라는것을 알려주는 방법
 
-### Advanced Configuration
+##### React.StatelessComponent(SFC) state를 가지고 있지않은 리액트 컴포넌트
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```
+interface ButtonProps {
+  color: string
+}
 
-### Deployment
+const Button: StatelessComponent<ButtonProps> = ({ color, children }) => (
+  <button style={{ color }}>{children}</button>
+)
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### State 관리
 
-### `yarn build` fails to minify
+- 함수형 컴포넌트는 타입스크립트 없이 컴포넌트를 작성하는 것과 별 차이가 없다. Hooks는 class 컴포넌트와 달리, useState를 사용할 때 Generics를 사용하지 않아도 타입을 유추하기 때문에 생략해도 상관없기 때문이다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+#### useState가 타입을 지정해야 할 때
+
+1. 상태가 null일 수도 있고 아닐수도 있을때
+
+```
+type Information={name:string; desc:string;};
+const [info, setInformation] = useState<Information | null >(null)
+```
+
+2. 상태가 타입이 까다로운 구조를 가진 객체이거나 배열일 때는 Generics를 명시하는 것이 좋다.
+
+```
+type Todo={id:number; name:string;}
+const [todos, setTodos]=useState<Todo[]>([]);
+```
