@@ -1,18 +1,25 @@
 ## 자바스크립트 라이브러리에서의 타입스크립트 💻
 
+---
+
+&nbsp;
+
 ![이미지](https://miro.medium.com/max/1400/1*apnQIB4uKgitf-fR8zxwEQ.png)
+&nbsp;
 
-#### npm i @types/my-untyped-module
+### 첫번째 방법: npm i @types/my-untyped-module
 
-#### What if 'npm ERR! 404 Not Found: @types/my-untyped-module@latest'
+&nbsp;
+
+### npm ERR! 404 Not Found: @types/my-untyped-module@latest
+
+&nbsp;
 
 #### Third party library가 만약 타입을 지원하지 않는다면 타입스크립트 컴파일러가 인식할수 있도록 직접 타입을 선언해줘야 하는데 이것을 'index.d.ts'안에서 해 줄수 있다.
 
-###### d.ts 파일 (선언코드만 담긴 파일)
+&nbsp;
 
----
-
-- 사용하는 법
+## 사용하는 법 ✨
 
 1. 'tsconfig.json' 파일을 수정한다.
 2. 'compilerOptions'에 'typeRoots'라는 속성을 추가해 주고 배열 안에 index.d.ts를 선언 할 Root를 설정 해 준다. 이때 typeRoot는 자신이 원하는 경로를 지정하고 설정할 수 있다.
@@ -64,9 +71,17 @@ declare module "module1"
 1. .ts file = types + excutable code / 타입스크립트 컴파일러를 통해 .js output을 생성
 2. .d.ts file은 decalaration file 즉 타입 선언만을 위한 파일이다. .js output을 생성하지 않기 때문에 오직 type checking을 위해 쓰이는 파일이다.
 
-## 리액트에서 타입스크립트 사용하기
+---
+
+&nbsp;
+
+## 리액트에서 타입스크립트 사용하기 💻
+
+&nbsp;
 
 ### Props
+
+&nbsp;
 
 ```
 type CardProps={  // type ver
@@ -90,7 +105,7 @@ const Card=({title,img,author}:CardProps)=>{
 
 }
 
-const Card:React.FC<CardProps>=(props)=>{
+const Card:React.FC<CardProps>=({title, img, author})=>{
     return
     (<>
     <span>{title} {author}</span>
@@ -99,25 +114,41 @@ const Card:React.FC<CardProps>=(props)=>{
 }
 ```
 
-##### React.FC란 해당 컴포넌트가 리액트의 함수형 컴포넌트라는것을 알려주는 방법
+### React.FC란 해당 컴포넌트가 리액트의 함수형 컴포넌트라는것을 알려주는 방법
 
-##### React.StatelessComponent(SFC) state를 가지고 있지않은 리액트 컴포넌트
+### 그렇다면 class형 컴포넌트는 ?
+
+```
+class App extends React.Component<myprops>
+```
+
+&nbsp;
+
+### React.StatelessComponent(SFC): state를 가지고 있지않은 리액트 컴포넌트
+
+&nbsp;
 
 ```
 interface ButtonProps {
   color: string
+  onClick:()=>void;
 }
 
-const Button: StatelessComponent<ButtonProps> = ({ color, children }) => (
-  <button style={{ color }}>{children}</button>
+const Button: StatelessComponent<ButtonProps> = ({ color, onClick, children }) => (
+  <button style={{ color }} onClick={onClick}>{children}</button>
 )
+
+const Button:React.SFC=()=>{<button></button>}
 ```
 
 ### State 관리
 
 - 함수형 컴포넌트는 타입스크립트 없이 컴포넌트를 작성하는 것과 별 차이가 없다. Hooks는 class 컴포넌트와 달리, useState를 사용할 때 Generics를 사용하지 않아도 타입을 유추하기 때문에 생략해도 상관없기 때문이다.
+  &nbsp;
 
-#### useState가 타입을 지정해야 할 때
+### useState가 타입을 지정해야 할 때
+
+&nbsp;
 
 1. 상태가 null일 수도 있고 아닐수도 있을때
 
@@ -131,4 +162,52 @@ const [info, setInformation] = useState<Information | null >(null)
 ```
 type Todo={id:number; name:string;}
 const [todos, setTodos]=useState<Todo[]>([]);
+```
+
+- type assertion 사용
+
+```
+const [user, setUser] = useState<Information>({} as Informaton);
+```
+
+#### 하지만 이 이후에 user state를 set해주지 않는다면 runtime error를 띄우게 됨
+
+&nbsp;
+
+### Event handling
+
+```
+function onChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setValue(e.target.value)
+  }
+
+  return <input value={value} onChange={onChange} id="input-example"/>
+```
+
+### Extending component props
+
+- type 이용
+
+```
+type InformationProps = {
+    name:string;
+    age:number;
+}
+
+type ExtendedInformationProps = InformationProps & {
+    gender:string;
+}
+```
+
+- Interface 이용
+
+```
+interface InformationProps = {
+    name:string;
+    age:number;
+}
+
+interface ExtendedInformationProps extends InformationProps {
+    gender:string;
+}
 ```

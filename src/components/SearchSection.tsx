@@ -27,7 +27,7 @@ function SearchSection() {
     dispatch(setKeyword(e.value));
   };
 
-  const handleInputChange = (e: any) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setCountryName(e.target.value));
   };
 
