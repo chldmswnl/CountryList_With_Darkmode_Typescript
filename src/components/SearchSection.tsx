@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { setKeyword } from "../redux/keywordSlice";
 import { setCountryName } from "../redux/countryNameSlice";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { throttle } from "lodash";
 
 const WrappedSearchSection = styled.div`
   display: flex;
@@ -28,13 +29,15 @@ function SearchSection() {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setCountryName(e.target.value));
+    throttle(() => {
+      dispatch(setCountryName(e.target.value));
+    }, 500);
   };
 
   const options = [
     { value: "", label: "None" },
     { value: "Africa", label: "Africa" },
-    { value: "North America", label: "America" },
+    { value: "Americas", label: "America" },
     { value: "Asia", label: "Asia" },
     { value: "Europe", label: "Europe" },
   ];

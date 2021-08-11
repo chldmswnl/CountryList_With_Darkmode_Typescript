@@ -1,5 +1,5 @@
 {
-  "name": "country-project",
+  "name": "countries-project",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -9,6 +9,7 @@
     "@types/node": "^16.4.3",
     "@types/react": "^17.0.15",
     "@types/react-dom": "^17.0.9",
+    "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
@@ -41,6 +42,8 @@
     ]
   },
   "devDependencies": {
-    "@types/styled-components": "^5.1.11"
+    "@types/lodash": "^4.14.172",
+    "@types/styled-components": "^5.1.11",
+    "@types/throttle-debounce": "^2.1.0"
   }
 }

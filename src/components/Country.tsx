@@ -1,6 +1,6 @@
 import React from "react";
 //import { countryType } from "../types";
-import { cType } from "Mymodule";
+import { countryType } from "Mymodule";
 import styled from "styled-components";
 
 const CountryCard = styled.div`
@@ -19,7 +19,7 @@ const CountryCard = styled.div`
 `;
 
 const FlagImg = styled.img`
-  width: 100%;
+  width: 15rem;
   height: 150px;
   border-bottom: 1px solid #dedede;
 `;
@@ -42,24 +42,15 @@ const CountryInfo = styled.span`
 `;
 
 type CountryProps = {
-  countryInfo: cType;
+  countryInfo: countryType;
 };
 
 function Country({
-  countryInfo: {
-    img,
-    name,
-    population,
-    capital,
-    region,
-    currency,
-    language,
-    borderCountries,
-  },
+  countryInfo: { flag, name, population, capital, region, languages },
 }: CountryProps) {
   return (
     <CountryCard>
-      <FlagImg alt="flag" src={img} />
+      <FlagImg alt="flag" src={flag} />
       <CountryInfoDiv>
         <CountryName>{name}</CountryName>
         <CountryInfo>Population: {population}</CountryInfo>

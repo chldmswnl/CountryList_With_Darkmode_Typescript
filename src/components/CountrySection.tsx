@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux";
 import Country from "./Country";
-import { countryType } from "../types";
+import { countryType } from "Mymodule";
 import styled from "styled-components";
 import { useState } from "react";
 
@@ -17,24 +17,29 @@ function CountrySection() {
   const data: countryType[] = useSelector(
     (state: RootState) => state.countryList
   );
-  const [countryList, setCountryList] = useState<countryType[]>([]);
+  const [countryList, setCountryList] = useState<countryType[]>(data);
   const keyword: string = useSelector((state: RootState) => state.keyword);
   const countryName: string = useSelector(
     (state: RootState) => state.countryName
   );
 
-  const makeNewList = (obj: { value: string; keyValue: string }) => {
-    const { value, keyValue } = obj;
+  const makeNewList = (obj: { key: string; value: string }) => {
     let newData: countryType[] = [];
-    if (value) {
-      newData =
-        keyValue === "region"
-          ? data.filter((data) => data.region === value)
-          : data.filter((data) => data.name === value);
-      setCountryList(newData);
-    } else {
-      setCountryList(data);
+    const { key, value } = obj;
+    switch (key) {
+      case "region":
+        value
+          ? (newData = data.filter((data) => data.region === value))
+          : (newData = data);
+
+        break;
+      case "name":
+        newData = data.filter((data) =>
+          data.name.toLowerCase().includes(value.toLowerCase())
+        );
+        break;
     }
+    setCountryList(newData);
   };
 
   useEffect(() => {
@@ -42,11 +47,12 @@ function CountrySection() {
   }, [data]);
 
   useEffect(() => {
-    makeNewList({ value: keyword, keyValue: "region" });
+    makeNewList({ value: keyword, key: "region" });
+    console.log(keyword);
   }, [keyword]);
 
   useEffect(() => {
-    makeNewList({ value: countryName, keyValue: "countryName" });
+    makeNewList({ value: countryName, key: "name" });
   }, [countryName]);
 
   return (

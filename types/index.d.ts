@@ -1,12 +1,11 @@
 declare module "Mymodule" {
-  type cType = {
-    img: string;
+  type countryType = {
+    languages: string[];
+    flag: string;
     name: string;
-    population: string;
-    capital: string;
+    population: number;
     region: string;
-    currency: string;
-    language: string;
-    borderCountries: string[];
+    borders: string[];
+    capital: string;
   };
 }
