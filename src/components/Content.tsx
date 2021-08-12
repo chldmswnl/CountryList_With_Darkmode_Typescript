@@ -4,7 +4,7 @@ import styled from "styled-components";
 import CountrySection from "./CountrySection";
 import { useDispatch } from "react-redux";
 import { setCountryList } from "../redux/listSlice";
-import getJobList from "../api/getCountryList";
+import getCountryList from "../api/getCountryList";
 import { useEffect } from "react";
 
 const WrappedMain = styled.div`
@@ -12,10 +12,10 @@ const WrappedMain = styled.div`
   margin-top: 20px;
 `;
 
-const Main = () => {
+const Content = () => {
   const dispatch = useDispatch();
   const fetchList = async () => {
-    const { data } = await getJobList();
+    const { data } = await getCountryList();
     dispatch(setCountryList(data));
   };
   useEffect(() => {
@@ -30,4 +30,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default Content;

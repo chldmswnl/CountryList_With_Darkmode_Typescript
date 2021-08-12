@@ -1,7 +1,7 @@
 import React from "react";
-//import { countryType } from "../types";
 import { countryType } from "Mymodule";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 const CountryCard = styled.div`
   width: 15rem;
@@ -46,10 +46,24 @@ type CountryProps = {
 };
 
 function Country({
-  countryInfo: { flag, name, population, capital, region, languages },
+  countryInfo: {
+    flag,
+    name,
+    population,
+    capital,
+    region,
+    languages,
+    numericCode,
+    alpha2Code,
+  },
 }: CountryProps) {
+  const history = useHistory();
+  const handleClick = () => {
+    history.push(`/${alpha2Code}`);
+  };
+
   return (
-    <CountryCard>
+    <CountryCard onClick={handleClick}>
       <FlagImg alt="flag" src={flag} />
       <CountryInfoDiv>
         <CountryName>{name}</CountryName>

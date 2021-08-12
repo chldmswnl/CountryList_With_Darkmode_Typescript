@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const getJobList = async () => {
+const getCountryList = async () => {
   return await axios.get("https://restcountries.eu/rest/v2/all");
 };
-export default getJobList;
+export default getCountryList;

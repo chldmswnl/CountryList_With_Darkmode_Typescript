@@ -7,5 +7,7 @@ declare module "Mymodule" {
     region: string;
     borders: string[];
     capital: string;
+    numericCode: string;
+    alpha2Code: string;
   };
 }

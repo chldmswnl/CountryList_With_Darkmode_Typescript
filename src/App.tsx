@@ -1,7 +1,9 @@
 import "./App.css";
-import Header from "./components/Header";
 import styled from "styled-components";
-import Main from "./components/Main";
+import { Route } from "react-router-dom";
+import CountryInfo from "./components/CountryInfo";
+import Header from "./components/Header";
+import Content from "./components/Content";
 
 const WrappedApp = styled.div`
   width: 100vw;
@@ -13,9 +15,10 @@ const WrappedApp = styled.div`
 
 function App() {
   return (
-    <WrappedApp className="App">
+    <WrappedApp>
       <Header />
-      <Main />
+      <Route exact path="/" component={Content} />
+      <Route path="/:code" component={CountryInfo} />
     </WrappedApp>
   );
 }
