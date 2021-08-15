@@ -41,7 +41,7 @@ function CountrySection() {
     }
     setCountryList(newData);
   };
-  console.log(data);
+
   useEffect(() => {
     setCountryList(data);
   }, [data]);

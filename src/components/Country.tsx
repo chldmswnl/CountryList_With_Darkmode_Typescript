@@ -2,6 +2,7 @@ import React from "react";
 import { countryType } from "Mymodule";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
+import { textColor, infoColor } from "../theme";
 
 const CountryCard = styled.div`
   width: 15rem;
@@ -32,13 +33,14 @@ const CountryInfoDiv = styled.div`
 `;
 
 const CountryName = styled.span`
+  color: ${textColor};
   font-weight: bold;
   font-size: 1.2rem;
   margin-bottom: 0.8rem;
 `;
 const CountryInfo = styled.span`
   font-size: 0.9rem;
-  color: #4a4a4a;
+  color: ${infoColor};
 `;
 
 type CountryProps = {
@@ -59,7 +61,7 @@ function Country({
 }: CountryProps) {
   const history = useHistory();
   const handleClick = () => {
-    history.push(`/${alpha2Code}`);
+    history.push(`/${name}`);
   };
 
   return (
@@ -67,7 +69,10 @@ function Country({
       <FlagImg alt="flag" src={flag} />
       <CountryInfoDiv>
         <CountryName>{name}</CountryName>
-        <CountryInfo>Population: {population}</CountryInfo>
+        <CountryInfo>
+          Population:{" "}
+          {population?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+        </CountryInfo>
         <CountryInfo>Region: {region}</CountryInfo>
         <CountryInfo>Capital: {capital}</CountryInfo>
       </CountryInfoDiv>
