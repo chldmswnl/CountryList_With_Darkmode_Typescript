@@ -48,7 +48,6 @@ function CountrySection() {
 
   useEffect(() => {
     makeNewList({ value: keyword, key: "region" });
-    console.log(keyword);
   }, [keyword]);
 
   useEffect(() => {

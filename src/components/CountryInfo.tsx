@@ -8,7 +8,7 @@ import { countryType } from "Mymodule";
 import { RootState } from "../redux";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import { backgroundColor, textColor, infoColor } from "../theme";
+import { backgroundColor, textColor, infoColor, screenSize } from "../theme";
 
 const BackBtn = styled.button`
   width: 100px;
@@ -24,6 +24,12 @@ const BackBtn = styled.button`
     background-color: #adadad;
     color: white;
   }
+  @media ${screenSize.mobile} {
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const StyledFlag = styled.img`
@@ -31,12 +37,22 @@ const StyledFlag = styled.img`
   height: 300px;
   margin-right: 100px;
   border: 1px solid #d9d9d9;
+  @media ${screenSize.mobile} {
+    margin-right: 0px;
+    margin-bottom: 20px;
+  }
 `;
 
 const WrappedInfo = styled.div`
   display: flex;
   align-items: center;
   margin-top: 50px;
+
+  @media ${screenSize.mobile} {
+    flex-direction: column;
+    align-items: start;
+    margin-bottom: 50px;
+  }
 `;
 const WrappedInfowBtn = styled.div`
   display: flex;
@@ -66,6 +82,7 @@ const BorderBtn = styled.button`
   margin-bottom: 10px;
   margin-left: 10px;
   font-size: 0.8rem;
+  font-weight: bold;
   border: 1px solid #adadad;
   color: #525252;
   &:hover {
@@ -76,6 +93,10 @@ const BorderBtn = styled.button`
 
 const StyledSpan = styled.span`
   color: ${textColor};
+`;
+
+const StyledInfoSpan = styled.span`
+  color: ${infoColor};
 `;
 
 const CountryInfo = () => {
@@ -136,26 +157,28 @@ const CountryInfo = () => {
             <StyledCoulmn>
               <StyledSpan>
                 <b>Population: </b>
-                {population?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                <StyledInfoSpan>
+                  {population?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                </StyledInfoSpan>
               </StyledSpan>
               <StyledSpan>
                 <b>Region: </b>
-                {region}
+                <StyledInfoSpan>{region}</StyledInfoSpan>
               </StyledSpan>
               <StyledSpan>
                 <b>Capital: </b>
-                {capital}
+                <StyledInfoSpan>{capital}</StyledInfoSpan>
               </StyledSpan>
               <StyledSpan>
                 <b>Currencies: </b>
                 {currencies?.map((currency) => (
-                  <span>{currency.symbol}</span>
+                  <StyledInfoSpan>{currency.symbol}</StyledInfoSpan>
                 ))}
               </StyledSpan>
               <StyledSpan>
                 <b>Languages: </b>
                 {languages?.map((language) => (
-                  <span>{language.name} </span>
+                  <StyledInfoSpan>{language.name} </StyledInfoSpan>
                 ))}
               </StyledSpan>
             </StyledCoulmn>

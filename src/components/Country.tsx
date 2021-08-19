@@ -2,7 +2,7 @@ import React from "react";
 import { countryType } from "Mymodule";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
-import { textColor, infoColor } from "../theme";
+import { textColor, infoColor, screenSize } from "../theme";
 
 const CountryCard = styled.div`
   width: 15rem;
@@ -17,12 +17,22 @@ const CountryCard = styled.div`
     transform: scale(1.05);
     transition: transform 0.5s;
   }
+
+  @media ${screenSize.mobile} {
+    width: 20rem;
+    height: 23rem;
+  }
 `;
 
 const FlagImg = styled.img`
   width: 15rem;
   height: 150px;
   border-bottom: 1px solid #dedede;
+
+  @media ${screenSize.mobile} {
+    width: 20rem;
+    height: 200px;
+  }
 `;
 
 const CountryInfoDiv = styled.div`
@@ -30,6 +40,7 @@ const CountryInfoDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   padding: 1rem;
+  height: 9.5rem;
 `;
 
 const CountryName = styled.span`

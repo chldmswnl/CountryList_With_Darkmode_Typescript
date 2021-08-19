@@ -6,10 +6,15 @@ import { useDispatch } from "react-redux";
 import { setKeyword } from "../redux/keywordSlice";
 import { setCountryName } from "../redux/countryNameSlice";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { screenSize } from "../theme";
 
 const WrappedSearchSection = styled.div`
   display: flex;
   justify-content: space-between;
+  @media ${screenSize.mobile} {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const SelectRegion = styled(Select)`
@@ -18,6 +23,9 @@ const SelectRegion = styled(Select)`
 
 const SearchBar = styled(Input)`
   width: 400px;
+  @media ${screenSize.mobile} {
+    margin-bottom: 30px;
+  }
 `;
 
 function SearchSection() {

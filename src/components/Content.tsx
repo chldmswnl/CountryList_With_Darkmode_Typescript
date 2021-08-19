@@ -6,10 +6,17 @@ import { useDispatch } from "react-redux";
 import { setCountryList } from "../redux/listSlice";
 import getCountryList from "../api/getCountryList";
 import { useEffect } from "react";
+import { screenSize } from "../theme";
 
 const WrappedMain = styled.div`
   width: 90vw;
   margin-top: 20px;
+  @media ${screenSize.mobile} {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const Content = () => {
